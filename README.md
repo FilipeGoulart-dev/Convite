@@ -43,6 +43,6 @@ Um link de WhatsApp geralmente exige que a pessoa abra o aplicativo e envie a me
 
 Ao entrar, a pessoa vê um envelope fechado. Ao clicar (ou pressionar Enter/Espaço), a carta abre e revela o convite. A animação respeita a preferência de movimento reduzido do dispositivo. Sem JavaScript, o convite continua visível.
 
-Adicione o áudio em `assets/musica-de-fundo.mp3`, ou ajuste `musica` em `config.js` com o caminho de um arquivo de áudio válido. O arquivo chamado `musica de fundo` encontrado no GitHub estava vazio (2 bytes), portanto não contém música reproduzível.
+O áudio incluído é `musica de fundo.mp3`, na raiz do projeto. A opção `musica` em `config.js` aponta para `musica%20de%20fundo.mp3` (os espaços são codificados para uso na URL). Para trocar a música, adicione outro arquivo de áudio válido e ajuste esse caminho. Inclua o MP3 ao publicar o site.
 
 O som inicia no clique de abertura, em volume de 35%, e toca em repetição. Há um botão para pausar/retomar. Se o arquivo não estiver disponível ou o navegador bloquear a reprodução, o convite abre normalmente e o botão permite tentar novamente.
