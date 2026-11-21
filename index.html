@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#faf7f0">
+  <meta name="description" content="Um pequeno convite, feito com carinho.">
+  <title>Um convite para você ♡</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="config.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="header">
+      <a class="brand" href="./" aria-label="Um convite, início"><span class="brand-icon">✳</span> um convite<span class="brand-dot">.</span></a>
+      <span class="header-note"><span class="tiny-heart">♥</span> FEITO COM CARINHO</span>
+    </header>
+
+    <main class="invitation" id="convite">
+      <section class="copy" aria-labelledby="title">
+        <div class="eyebrow"><span class="eyebrow-line"></span> UMA PERGUNTA ESPECIAL <span class="eyebrow-star">✳</span></div>
+        <h1 id="title">A vida fica mais<br>bonita com <em>bons<br class="desktop-break"> momentos.</em></h1>
+        <p class="intro">E eu estava pensando que seria ainda melhor compartilhar um desses momentos com você.</p>
+        <div class="question-block">
+          <span class="question-sparkle" aria-hidden="true">✦</span>
+          <p class="question">Você aceita sair comigo?</p>
+          <p class="question-subtitle">Prometo boa companhia e boas risadas.</p>
+        </div>
+
+        <div id="response-area">
+          <div class="button-playground" id="playground" aria-label="Opções de resposta">
+            <button class="button button-yes" id="yes-button" type="button">Sim, eu aceito! <span aria-hidden="true">↗</span></button>
+            <button class="button button-no" id="no-button" type="button">Não <span aria-hidden="true">↗</span></button>
+          </div>
+          <p class="playful-message" id="playful-message" aria-live="polite"><span aria-hidden="true">✧</span> Uma pequena dica: o sim é uma ótima escolha.</p>
+          <p class="privacy-note">Ao clicar em sim, sua resposta será enviada para quem fez o convite.</p>
+          <button class="decline-link" id="decline-button" type="button">Prefiro deixar para outra hora</button>
+        </div>
+        <div class="result" id="result" role="status" aria-live="polite" hidden></div>
+      </section>
+
+      <aside class="art-side" aria-label="Ilustração de uma flor em um vaso">
+        <div class="art-frame">
+          <img src="assets/convite-illustration.png" alt="Uma flor delicada em um vaso, ao lado de um bilhete." width="1024" height="1536">
+          <span class="art-stamp" aria-hidden="true"><span>PARA VOCÊ</span><b>♡</b><span>COM CARINHO</span></span>
+          <span class="art-caption">pequenos momentos, <em>grandes memórias.</em></span>
+        </div>
+        <span class="side-note" aria-hidden="true">UM CONVITE ESPECIAL&nbsp; · &nbsp;SÓ PARA VOCÊ</span>
+        <span class="art-sparkle" aria-hidden="true">✳</span>
+      </aside>
+    </main>
+
+    <footer class="footer"><span>UM PEQUENO CONVITE, UMA GRANDE POSSIBILIDADE.</span><span>FEITO COM <span class="tiny-heart">♥</span> E UM POUQUINHO DE CORAGEM</span></footer>
+  </div>
+</body>
+</html>
