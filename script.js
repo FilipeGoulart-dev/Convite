@@ -1,9 +1,59 @@
 (() => {
   const config = window.CONVITE_CONFIG || {};
+  const intro = document.getElementById('letter-intro');
+  const openLetter = document.getElementById('open-letter');
+  const page = document.querySelector('.page-shell');
+  const music = document.getElementById('background-music');
+  const musicToggle = document.getElementById('music-toggle');
+  let opening = false;
+  music.volume = 0.35;
+
+  function updateMusicButton() {
+    const playing = !music.paused;
+    musicToggle.textContent = playing ? 'Pausar música ♫' : 'Tocar música ♫';
+    musicToggle.setAttribute('aria-label', playing ? 'Pausar música de fundo' : 'Tocar música de fundo');
+    musicToggle.setAttribute('aria-pressed', String(playing));
+  }
+
+  function playMusic() {
+    if (!music.getAttribute('src')) music.src = config.musica || 'assets/musica-de-fundo.mp3';
+    music.play().then(updateMusicButton).catch(() => {
+      musicToggle.textContent = 'Música indisponível · tentar de novo';
+      musicToggle.setAttribute('aria-label', 'Música indisponível. Tentar reproduzir novamente');
+      musicToggle.setAttribute('aria-pressed', 'false');
+    });
+  }
+  music.addEventListener('play', updateMusicButton);
+  music.addEventListener('pause', updateMusicButton);
+  musicToggle.addEventListener('click', () => {
+    if (music.paused) playMusic();
+    else music.pause();
+  });
+
+  // Progressive enhancement: without JavaScript the invitation stays accessible.
+  intro.hidden = false;
+  page.hidden = true;
+  document.body.classList.add('letter-closed');
+  openLetter.addEventListener('click', () => {
+    if (opening) return;
+    opening = true;
+    openLetter.disabled = true;
+    playMusic(); // Must run directly in the user's gesture for mobile browsers.
+    intro.classList.add('is-opening');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.setTimeout(() => {
+      intro.hidden = true;
+      page.hidden = false;
+      page.classList.add('invitation-revealed');
+      document.body.classList.remove('letter-closed');
+      musicToggle.hidden = false;
+      document.getElementById('title').focus({ preventScroll: true });
+    }, reducedMotion ? 0 : 1600);
+  });
+
   const playground = document.getElementById('playground');
   const noButton = document.getElementById('no-button');
   const yesButton = document.getElementById('yes-button');
-  const declineButton = document.getElementById('decline-button');
   const responseArea = document.getElementById('response-area');
   const result = document.getElementById('result');
   const playfulMessage = document.getElementById('playful-message');
@@ -128,7 +178,4 @@
   }
 
   yesButton.addEventListener('click', sendResponse);
-  declineButton.addEventListener('click', () => {
-    showResult('Tudo bem, de verdade.', 'Que bom que você passou por aqui. Sem pressão e com carinho.');
-  });
 })();
