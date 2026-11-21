@@ -46,3 +46,13 @@ Ao entrar, a pessoa vê um envelope fechado. Ao clicar (ou pressionar Enter/Espa
 O áudio incluído é `musica de fundo.mp3`, na raiz do projeto. A opção `musica` em `config.js` aponta para `musica%20de%20fundo.mp3` (os espaços são codificados para uso na URL). Para trocar a música, adicione outro arquivo de áudio válido e ajuste esse caminho. Inclua o MP3 ao publicar o site.
 
 O som inicia no clique de abertura, em volume de 35%, e toca em repetição. Há um botão para pausar/retomar. Se o arquivo não estiver disponível ou o navegador bloquear a reprodução, o convite abre normalmente e o botão permite tentar novamente.
+
+## Versão animada
+
+A pasta `versao-animada/` tem um visual novo e mais animado (corações flutuando, carta com brilho, cartão com o texto, ilustração em arco e botão de música com equalizador). Ela mantém:
+
+- o botão “Não” que foge, com as mesmas frases;
+- a animação de abertura da carta;
+- a música de fundo, o botão de pausar/retomar e o envio por Formspree.
+
+Acesse `versao-animada/` no site publicado (por exemplo, `https://SEU_USUARIO.github.io/Convite/versao-animada/`). Ela usa o `config.js` e a música da raiz do projeto, então não é preciso configurar nada a mais.
