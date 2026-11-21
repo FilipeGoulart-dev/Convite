@@ -33,7 +33,7 @@ Você também pode testar a aparência localmente abrindo `index.html`, ou inici
 
 ## Personalização
 
-Edite os textos em `index.html` e as frases divertidas na lista `phrases`, em `script.js`. As cores e o layout estão em `style.css`. A imagem está em `assets/convite-illustration.png`.
+Edite os textos em `index.html` e as frases divertidas na lista `phrases`, em `script.js`. As cores e o layout estão em `style.css`. A imagem original está em `assets/convite-illustration.png`; o site carrega `assets/convite-illustration.webp` (navegadores modernos) com `assets/convite-illustration.jpg` como fallback. Se trocar a arte, gere novamente esses dois derivados.
 
 ### Por que e-mail em vez de WhatsApp?
 
@@ -46,3 +46,15 @@ Ao entrar, a pessoa vê um envelope fechado. Ao clicar (ou pressionar Enter/Espa
 O áudio incluído é `musica de fundo.mp3`, na raiz do projeto. A opção `musica` em `config.js` aponta para `musica%20de%20fundo.mp3` (os espaços são codificados para uso na URL). Para trocar a música, adicione outro arquivo de áudio válido e ajuste esse caminho. Inclua o MP3 ao publicar o site.
 
 O som inicia no clique de abertura, em volume de 35%, e toca em repetição. Há um botão para pausar/retomar. Se o arquivo não estiver disponível ou o navegador bloquear a reprodução, o convite abre normalmente e o botão permite tentar novamente.
+
+## Otimização para celular
+
+O projeto foi ajustado para telas pequenas e redes móveis:
+
+- **Peso da página**: a ilustração é servida como WebP de ~120 KB (JPEG de ~215 KB como fallback), no lugar do PNG original de 2,6 MB. O MP3 foi recomprimido para 96 kbps (~3,3 MB). A música usa `preload="none"` e só baixa após o toque de abertura.
+- **Layout**: `viewport-fit=cover` com `env(safe-area-inset-*)` para celulares com notch, `overflow-x` bloqueado (os enfeites decorativos não causam rolagem lateral), quebra de layout em 800px, 420px e 360px, e regra específica para celulares deitados (altura < 520px).
+- **Toque**: botões com `touch-action: manipulation` (sem atraso de duplo toque), alvos de toque de pelo menos ~48 px, destaque de toque removido e botão de música com área mínima de 44 px.
+- **Botão “Não”**: a posição inicial é calculada por JavaScript a partir da largura real do botão “Sim” (e recalculada em redimensionamento/orientação), em vez de um deslocamento fixo em pixels.
+- **Imagem**: `loading="lazy"` e `decoding="async"`, já que a arte fica abaixo do texto em telas estreitas.
+
+Para conferir em um celular real, publique no GitHub Pages (ou sirva localmente com `python3 -m http.server 8000`) e abra pelo navegador do aparelho.
