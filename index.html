@@ -9,12 +9,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=2">
   <script src="config.js" defer></script>
-  <script src="script.js" defer></script>
+  <script src="script.js?v=2" defer></script>
 </head>
 <body>
   <section class="letter-intro" id="letter-intro" aria-label="Uma carta para você" hidden>
+    <span class="spark" style="top:14%;left:10%" aria-hidden="true">✦</span>
+    <span class="spark" style="top:22%;right:12%;animation-delay:-1s" aria-hidden="true">✳</span>
+    <span class="spark" style="bottom:20%;left:16%;animation-delay:-2s" aria-hidden="true">♡</span>
+    <span class="spark" style="bottom:16%;right:14%;animation-delay:-1.5s" aria-hidden="true">✦</span>
     <p class="letter-eyebrow">FEITO COM CARINHO · SÓ PARA VOCÊ</p>
     <h2>Tem uma coisa que eu<br>queria te perguntar…</h2>
     <button class="envelope" id="open-letter" type="button" aria-label="Abrir a carta e iniciar a música">
@@ -27,7 +31,10 @@
     <span class="letter-footnote">um pequeno gesto, uma bonita possibilidade.</span>
   </section>
   <audio id="background-music" loop preload="none"></audio>
-  <button class="music-toggle" id="music-toggle" type="button" aria-label="Tocar música de fundo" aria-pressed="false" hidden>Tocar música ♫</button>
+  <button class="music-toggle" id="music-toggle" type="button" aria-label="Tocar música de fundo" aria-pressed="false" hidden>
+    <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span id="music-label">Tocar música ♫</span>
+  </button>
   <div class="page-shell">
     <header class="header">
       <a class="brand" href="./" aria-label="Um convite, início"><span class="brand-icon">✳</span> um convite<span class="brand-dot">.</span></a>
@@ -36,31 +43,32 @@
 
     <main class="invitation" id="convite">
       <section class="copy" aria-labelledby="title">
-        <div class="eyebrow"><span class="eyebrow-line"></span> UMA PERGUNTA ESPECIAL <span class="eyebrow-star">✳</span></div>
-        <h1 id="title" tabindex="-1">A vida fica mais<br>bonita com <em>bons<br class="desktop-break"> momentos.</em></h1>
-        <p class="intro">E eu estava pensando que seria ainda melhor compartilhar um desses momentos com você.</p>
-        <div class="question-block">
+        <div class="eyebrow" style="--i:0"><span class="eyebrow-line"></span> UMA PERGUNTA ESPECIAL <span class="eyebrow-star">✳</span></div>
+        <h1 id="title" tabindex="-1" style="--i:1">A vida fica mais<br>bonita com <em>bons<br class="desktop-break"> momentos.</em></h1>
+        <p class="intro" style="--i:2">E eu estava pensando que seria ainda melhor compartilhar um desses momentos com você.</p>
+        <div class="question-block" style="--i:3">
           <span class="question-sparkle" aria-hidden="true">✦</span>
           <p class="question">Você aceita sair comigo?</p>
           <p class="question-subtitle">Prometo boa companhia e boas risadas.</p>
         </div>
 
-        <div id="response-area">
+        <div id="response-area" style="--i:4">
           <div class="button-playground" id="playground" aria-label="Opções de resposta">
             <button class="button button-yes" id="yes-button" type="button">Sim, eu aceito! <span aria-hidden="true">↗</span></button>
             <button class="button button-no" id="no-button" type="button">Não <span aria-hidden="true">↗</span></button>
           </div>
           <p class="playful-message" id="playful-message" aria-live="polite"><span aria-hidden="true">✧</span> Uma pequena dica: o sim é uma ótima escolha.</p>
         </div>
-        <div class="result" id="result" role="status" aria-live="polite" hidden></div>
+        <div class="result" id="result" role="status" aria-live="polite" tabindex="-1" hidden></div>
       </section>
 
-      <aside class="art-side" aria-label="Ilustração de uma flor em um vaso">
+      <aside class="art-side" aria-label="Ilustração de uma varanda com xícaras, flores e uma carta">
+        <span class="art-ring" aria-hidden="true"></span>
         <div class="art-frame">
-          <img src="assets/convite-illustration.png" alt="Uma flor delicada em um vaso, ao lado de um bilhete." width="1024" height="1536">
-          <span class="art-stamp" aria-hidden="true"><span>PARA VOCÊ</span><b>♡</b><span>COM CARINHO</span></span>
-          <span class="art-caption">pequenos momentos, <em>grandes memórias.</em></span>
+          <img src="assets/ilustracao.jpg" alt="Duas xícaras, um buquê de peônias e uma carta com selo de cera numa varanda ao entardecer.">
         </div>
+        <span class="art-stamp" aria-hidden="true"><span>PARA VOCÊ</span><b>♡</b><span>COM CARINHO</span></span>
+        <span class="art-caption">pequenos momentos, <em>grandes memórias.</em></span>
         <span class="side-note" aria-hidden="true">UM CONVITE ESPECIAL&nbsp; · &nbsp;SÓ PARA VOCÊ</span>
         <span class="art-sparkle" aria-hidden="true">✳</span>
       </aside>

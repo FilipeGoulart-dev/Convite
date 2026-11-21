@@ -1,26 +1,35 @@
 (() => {
   const config = window.CONVITE_CONFIG || {};
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const intro = document.getElementById('letter-intro');
   const openLetter = document.getElementById('open-letter');
   const page = document.querySelector('.page-shell');
   const music = document.getElementById('background-music');
   const musicToggle = document.getElementById('music-toggle');
+  const musicLabel = document.getElementById('music-label');
+  // O MP3 fica na raiz do projeto, ao lado desta página.
+  const musicSrc = new URL(config.musica || 'musica%20de%20fundo.mp3', document.baseURI).href;
   let opening = false;
   music.volume = 0.35;
 
+  function setMusicLabel(text, label, pressed) {
+    musicLabel.textContent = text;
+    musicToggle.setAttribute('aria-label', label);
+    musicToggle.setAttribute('aria-pressed', pressed);
+  }
+
   function updateMusicButton() {
     const playing = !music.paused;
-    musicToggle.textContent = playing ? 'Pausar música ♫' : 'Tocar música ♫';
-    musicToggle.setAttribute('aria-label', playing ? 'Pausar música de fundo' : 'Tocar música de fundo');
-    musicToggle.setAttribute('aria-pressed', String(playing));
+    musicToggle.classList.toggle('is-playing', playing);
+    if (playing) setMusicLabel('Pausar música ♫', 'Pausar música de fundo', 'true');
+    else setMusicLabel('Tocar música ♫', 'Tocar música de fundo', 'false');
   }
 
   function playMusic() {
-    if (!music.getAttribute('src')) music.src = config.musica || 'musica%20de%20fundo.mp3';
+    if (!music.getAttribute('src')) music.src = musicSrc;
     music.play().then(updateMusicButton).catch(() => {
-      musicToggle.textContent = 'Música indisponível · tentar de novo';
-      musicToggle.setAttribute('aria-label', 'Música indisponível. Tentar reproduzir novamente');
-      musicToggle.setAttribute('aria-pressed', 'false');
+      musicToggle.classList.remove('is-playing');
+      setMusicLabel('Música indisponível · tentar de novo', 'Música indisponível. Tentar reproduzir novamente', 'false');
     });
   }
   music.addEventListener('play', updateMusicButton);
@@ -30,17 +39,67 @@
     else music.pause();
   });
 
+  // Corações ao fundo (decorativos, ocultos com movimento reduzido).
+  function createHearts(count) {
+    const layer = document.createElement('div');
+    layer.className = 'hearts';
+    layer.setAttribute('aria-hidden', 'true');
+    for (let i = 0; i < count; i++) {
+      const heart = document.createElement('span');
+      heart.className = 'heart';
+      heart.textContent = i % 3 === 0 ? '✦' : '♡';
+      heart.style.left = `${Math.random() * 100}%`;
+      heart.style.fontSize = `${10 + Math.random() * 16}px`;
+      heart.style.animationDuration = `${14 + Math.random() * 12}s`;
+      heart.style.animationDelay = `${-Math.random() * 20}s`;
+      heart.style.setProperty('--sway', `${(Math.random() - 0.5) * 160}px`);
+      layer.append(heart);
+    }
+    document.body.prepend(layer);
+  }
+
+  // Explosão de corações quando a carta abre.
+  function burst(origin) {
+    if (reducedMotion.matches) return;
+    const rect = origin.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    for (let i = 0; i < 18; i++) {
+      const el = document.createElement('span');
+      el.className = 'burst';
+      el.textContent = i % 4 === 0 ? '✦' : '♡';
+      el.style.left = `${cx}px`;
+      el.style.top = `${cy}px`;
+      document.body.append(el);
+      const angle = Math.random() * Math.PI * 2;
+      const dist = 90 + Math.random() * 150;
+      const dx = Math.cos(angle) * dist;
+      const dy = Math.sin(angle) * dist - 40;
+      // Browsers without the Web Animations API skip the burst instead of breaking the opening.
+      if (typeof el.animate !== 'function') { el.remove(); continue; }
+      const anim = el.animate([
+        { transform: 'translate(-50%, -50%) scale(.3)', opacity: 0 },
+        { opacity: 1, offset: 0.25 },
+        { transform: `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(1)`, opacity: 0 }
+      ], { duration: 1100 + Math.random() * 500, easing: 'cubic-bezier(.2,.7,.3,1)', fill: 'forwards' });
+      anim.onfinish = () => el.remove();
+    }
+  }
+
   // Progressive enhancement: without JavaScript the invitation stays accessible.
   intro.hidden = false;
   page.hidden = true;
   document.body.classList.add('letter-closed');
+  if (!reducedMotion.matches) createHearts(14);
+
   openLetter.addEventListener('click', () => {
     if (opening) return;
     opening = true;
     openLetter.disabled = true;
     playMusic(); // Must run directly in the user's gesture for mobile browsers.
     intro.classList.add('is-opening');
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    burst(openLetter);
+    const delay = reducedMotion.matches ? 0 : 1600;
     window.setTimeout(() => {
       intro.hidden = true;
       page.hidden = false;
@@ -48,7 +107,7 @@
       document.body.classList.remove('letter-closed');
       musicToggle.hidden = false;
       document.getElementById('title').focus({ preventScroll: true });
-    }, reducedMotion ? 0 : 1600);
+    }, delay);
   });
 
   const playground = document.getElementById('playground');
@@ -68,6 +127,14 @@
   ];
   let phraseIndex = 0;
   let sending = false;
+
+  function showPhrase(text) {
+    playfulMessage.textContent = text;
+    // Reinicia a animação de entrada da frase a cada troca.
+    playfulMessage.classList.remove('bump');
+    void playfulMessage.offsetWidth;
+    playfulMessage.classList.add('bump');
+  }
 
   function moveNoButton() {
     const area = playground.getBoundingClientRect();
@@ -94,7 +161,7 @@
       noButton.style.left = `${best.x}px`;
       noButton.style.top = `${best.y}px`;
     }
-    playfulMessage.textContent = `✧ ${phrases[phraseIndex % phrases.length]}`;
+    showPhrase(`✧ ${phrases[phraseIndex % phrases.length]}`);
     phraseIndex++;
   }
 
