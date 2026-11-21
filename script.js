@@ -16,7 +16,7 @@
   }
 
   function playMusic() {
-    if (!music.getAttribute('src')) music.src = config.musica || 'assets/musica-de-fundo.mp3';
+    if (!music.getAttribute('src')) music.src = config.musica || 'musica%20de%20fundo.mp3';
     music.play().then(updateMusicButton).catch(() => {
       musicToggle.textContent = 'Música indisponível · tentar de novo';
       musicToggle.setAttribute('aria-label', 'Música indisponível. Tentar reproduzir novamente');
