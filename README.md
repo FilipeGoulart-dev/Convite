@@ -1,6 +1,6 @@
 # Um convite especial ♡
 
-Um convite responsivo, feito com HTML, CSS e JavaScript, que funciona no GitHub Pages sem servidor. O botão “Não” foge de brincadeira; há também uma opção discreta para recusar sem pressão. Ao clicar em “Sim”, a resposta é enviada automaticamente por e-mail usando o [Formspree](https://formspree.io/). A pessoa convidada não precisa abrir outro aplicativo nem fazer outra confirmação.
+Um convite responsivo, feito com HTML, CSS e JavaScript, que funciona no GitHub Pages sem servidor. O botão “Não” foge de brincadeira. Ao clicar em “Sim”, a resposta é enviada automaticamente por e-mail usando o [Formspree](https://formspree.io/). A pessoa convidada não precisa abrir outro aplicativo nem fazer outra confirmação.
 
 ## 1. Configure o recebimento por e-mail
 
@@ -21,7 +21,7 @@ O GitHub Pages só hospeda arquivos estáticos: ele **não envia e-mails sozinho
    Troque `SEU_ID` pelo identificador real fornecido pelo Formspree. O endereço é público no código do site: **não coloque senha, token ou chave secreta** nele. Qualquer pessoa com o link pode enviar respostas, então o serviço pode receber spam e o limite do plano pode ser consumido.
 4. Publique o projeto e faça um teste real: abra o site, clique em “Sim” e verifique a mensagem de sucesso e seu e-mail (inclusive a pasta de spam). Confirme no painel do Formspree se a resposta chegou. Se necessário, finalize as verificações solicitadas pelo serviço. Não envie o convite antes de testar.
 
-A resposta só será registrada se a conexão e o serviço funcionarem. Em caso de erro, a página avisa e oferece uma nova tentativa. Sem um endpoint configurado, a página informa que o aviso não foi configurado; não há envio automático. Os nomes e a URL da página são enviados ao Formspree junto com a resposta; não inclua dados sensíveis na configuração ou na URL. O texto no convite informa à pessoa sobre o envio.
+A resposta só será registrada se a conexão e o serviço funcionarem. Em caso de erro, a página avisa e oferece uma nova tentativa. Sem um endpoint configurado, a página informa que o aviso não foi configurado; não há envio automático. Os nomes e a URL da página são enviados ao Formspree junto com a resposta; não inclua dados sensíveis na configuração ou na URL.
 
 ## 2. Publique no GitHub Pages
 
@@ -33,8 +33,16 @@ Você também pode testar a aparência localmente abrindo `index.html`, ou inici
 
 ## Personalização
 
-Edite os textos em `index.html` e as frases divertidas na lista `phrases`, em `script.js`. As cores e o layout estão em `style.css`. A imagem está em `assets/convite-illustration.png`. A opção “Prefiro deixar para outra hora” não envia nenhuma resposta: ela existe para que a pessoa possa recusar sem se sentir pressionada.
+Edite os textos em `index.html` e as frases divertidas na lista `phrases`, em `script.js`. As cores e o layout estão em `style.css`. A imagem está em `assets/convite-illustration.png`.
 
 ### Por que e-mail em vez de WhatsApp?
 
 Um link de WhatsApp geralmente exige que a pessoa abra o aplicativo e envie a mensagem manualmente. Envio automático por WhatsApp normalmente exige um serviço de mensagens, configuração adicional e pode ter custos. Para este projeto estático, o Formspree por e-mail é a opção mais simples para começar.
+
+## Carta de abertura e música
+
+Ao entrar, a pessoa vê um envelope fechado. Ao clicar (ou pressionar Enter/Espaço), a carta abre e revela o convite. A animação respeita a preferência de movimento reduzido do dispositivo. Sem JavaScript, o convite continua visível.
+
+Adicione o áudio em `assets/musica-de-fundo.mp3`, ou ajuste `musica` em `config.js` com o caminho de um arquivo de áudio válido. O arquivo chamado `musica de fundo` encontrado no GitHub estava vazio (2 bytes), portanto não contém música reproduzível.
+
+O som inicia no clique de abertura, em volume de 35%, e toca em repetição. Há um botão para pausar/retomar. Se o arquivo não estiver disponível ou o navegador bloquear a reprodução, o convite abre normalmente e o botão permite tentar novamente.

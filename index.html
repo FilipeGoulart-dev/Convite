@@ -14,6 +14,20 @@
   <script src="script.js" defer></script>
 </head>
 <body>
+  <section class="letter-intro" id="letter-intro" aria-label="Uma carta para você" hidden>
+    <p class="letter-eyebrow">FEITO COM CARINHO · SÓ PARA VOCÊ</p>
+    <h2>Tem uma coisa que eu<br>queria te perguntar…</h2>
+    <button class="envelope" id="open-letter" type="button" aria-label="Abrir a carta e iniciar a música">
+      <span class="envelope-paper" aria-hidden="true">Um convite especial <b>♡</b></span>
+      <span class="envelope-front" aria-hidden="true"></span>
+      <span class="envelope-flap" aria-hidden="true"></span>
+      <span class="envelope-seal" aria-hidden="true">♡</span>
+    </button>
+    <p class="letter-hint">Toque na carta para abrir</p>
+    <span class="letter-footnote">um pequeno gesto, uma bonita possibilidade.</span>
+  </section>
+  <audio id="background-music" loop preload="none"></audio>
+  <button class="music-toggle" id="music-toggle" type="button" aria-label="Tocar música de fundo" aria-pressed="false" hidden>Tocar música ♫</button>
   <div class="page-shell">
     <header class="header">
       <a class="brand" href="./" aria-label="Um convite, início"><span class="brand-icon">✳</span> um convite<span class="brand-dot">.</span></a>
@@ -23,7 +37,7 @@
     <main class="invitation" id="convite">
       <section class="copy" aria-labelledby="title">
         <div class="eyebrow"><span class="eyebrow-line"></span> UMA PERGUNTA ESPECIAL <span class="eyebrow-star">✳</span></div>
-        <h1 id="title">A vida fica mais<br>bonita com <em>bons<br class="desktop-break"> momentos.</em></h1>
+        <h1 id="title" tabindex="-1">A vida fica mais<br>bonita com <em>bons<br class="desktop-break"> momentos.</em></h1>
         <p class="intro">E eu estava pensando que seria ainda melhor compartilhar um desses momentos com você.</p>
         <div class="question-block">
           <span class="question-sparkle" aria-hidden="true">✦</span>
@@ -37,8 +51,6 @@
             <button class="button button-no" id="no-button" type="button">Não <span aria-hidden="true">↗</span></button>
           </div>
           <p class="playful-message" id="playful-message" aria-live="polite"><span aria-hidden="true">✧</span> Uma pequena dica: o sim é uma ótima escolha.</p>
-          <p class="privacy-note">Ao clicar em sim, sua resposta será enviada para quem fez o convite.</p>
-          <button class="decline-link" id="decline-button" type="button">Prefiro deixar para outra hora</button>
         </div>
         <div class="result" id="result" role="status" aria-live="polite" hidden></div>
       </section>
