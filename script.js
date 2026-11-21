@@ -68,21 +68,6 @@
   ];
   let phraseIndex = 0;
   let sending = false;
-  let noMoved = false;
-
-  // Place the "Não" button right after the "Sim" button, whatever the font
-  // metrics or viewport width are, instead of relying on a fixed offset.
-  function seatNoButton() {
-    if (noMoved) return;
-    const area = playground.getBoundingClientRect();
-    const yes = yesButton.getBoundingClientRect();
-    const no = noButton.getBoundingClientRect();
-    const maxX = Math.max(0, area.width - no.width);
-    const gap = 14;
-    const x = Math.min(Math.max(0, yes.right - area.left + gap), maxX);
-    noButton.style.left = `${x}px`;
-    noButton.style.top = '0px';
-  }
 
   function moveNoButton() {
     const area = playground.getBoundingClientRect();
@@ -106,7 +91,6 @@
       if (distance > bestDistance) { best = { x, y }; bestDistance = distance; }
     }
     if (best) {
-      noMoved = true;
       noButton.style.left = `${best.x}px`;
       noButton.style.top = `${best.y}px`;
     }
@@ -131,16 +115,9 @@
   window.addEventListener('resize', () => {
     const maxX = Math.max(0, playground.clientWidth - noButton.offsetWidth);
     const maxY = Math.max(0, playground.clientHeight - noButton.offsetHeight);
-    if (noMoved) {
-      if (noButton.style.left) noButton.style.left = `${Math.min(parseFloat(noButton.style.left), maxX)}px`;
-      if (noButton.style.top) noButton.style.top = `${Math.min(parseFloat(noButton.style.top), maxY)}px`;
-    } else {
-      seatNoButton();
-    }
+    if (noButton.style.left) noButton.style.left = `${Math.min(parseFloat(noButton.style.left), maxX)}px`;
+    if (noButton.style.top) noButton.style.top = `${Math.min(parseFloat(noButton.style.top), maxY)}px`;
   });
-  window.addEventListener('load', seatNoButton);
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(seatNoButton);
-  seatNoButton();
 
   function showResult(title, message, allowRetry = false) {
     responseArea.hidden = true;
