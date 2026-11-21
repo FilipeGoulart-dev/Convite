@@ -33,7 +33,7 @@ Você também pode testar a aparência localmente abrindo `index.html`, ou inici
 
 ## Personalização
 
-Edite os textos em `index.html` e as frases divertidas na lista `phrases`, em `script.js`. As cores e o layout estão em `style.css`. A imagem está em `assets/convite-illustration.png`.
+Edite os textos em `index.html` e as frases divertidas na lista `phrases`, em `script.js`. As cores e o layout estão em `style.css`. A ilustração principal está em `assets/ilustracao.jpg` e o fundo em `assets/fundo.jpg`.
 
 ### Por que e-mail em vez de WhatsApp?
 
@@ -47,12 +47,16 @@ O áudio incluído é `musica de fundo.mp3`, na raiz do projeto. A opção `musi
 
 O som inicia no clique de abertura, em volume de 35%, e toca em repetição. Há um botão para pausar/retomar. Se o arquivo não estiver disponível ou o navegador bloquear a reprodução, o convite abre normalmente e o botão permite tentar novamente.
 
-## Versão animada
+## Versão animada (principal)
 
-A pasta `versao-animada/` tem um visual novo e mais animado (corações flutuando, carta com brilho, cartão com o texto, ilustração em arco e botão de música com equalizador). Ela mantém:
+A página principal, na raiz do projeto, é a versão animada: corações flutuando, carta com brilho, cartão com o texto, ilustração em arco e botão de música com equalizador. Ela mantém:
 
 - o botão “Não” que foge, com as mesmas frases;
 - a animação de abertura da carta;
 - a música de fundo, o botão de pausar/retomar e o envio por Formspree.
 
-Acesse `versao-animada/` no site publicado (por exemplo, `https://SEU_USUARIO.github.io/Convite/versao-animada/`). Ela usa o `config.js` e a música da raiz do projeto, então não é preciso configurar nada a mais.
+Ao publicar no GitHub Pages com a pasta **/ (root)**, o endereço do site (por exemplo, `https://SEU_USUARIO.github.io/Convite/`) já abre essa versão.
+
+### Versão clássica
+
+A versão anterior, mais sóbria, continua disponível em `versao-classica/` (por exemplo, `https://SEU_USUARIO.github.io/Convite/versao-classica/`). Ela usa o mesmo `config.js` e a música da raiz, então não é preciso configurar nada a mais.
